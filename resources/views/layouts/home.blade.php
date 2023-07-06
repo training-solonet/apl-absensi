@@ -15,7 +15,8 @@
     <link rel="shortcut icon" href="{{ url('skote/assets/images/favicon.ico') }}">
 
     <!-- Bootstrap Css -->
-    <link rel="stylesheet" href="{{ url('skote/assets/css/bootstrap.min.css') }}" id="bootstrap-style" type="text/css" />
+    <link  href="{{ url('skote/assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+
     <!-- Icons Css -->
     <link href="{{ url('skote/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
