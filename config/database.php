@@ -63,6 +63,38 @@ return [
             ]) : [],
         ],
 
+        'appsolon_app' => [
+            'driver' => env('DB_CONNECTION_appsolon_app'),
+            'host' => env('DB_HOST_appsolon_app', '127.0.0.1'),
+            'port' => env('DB_PORT_appsolon_app', '3306'),
+            'database' => env('DB_DATABASE_appsolon_app', 'forge'),
+            'username' => env('DB_USERNAME_appsolon_app', 'forge'),
+            'password' => env('DB_PASSWORD_appsolon_app', ''),
+            'unix_socket' => '',
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false,
+            'engine' => null,
+        ],
+
+        'mysql_2' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST_db_auth', '127.0.0.1'),
+            'port' => env('DB_PORT_db_auth', '3306'),
+            'database' => 'auth_server',
+            'username' => 'root',
+            'password' => env('DB_PASSWORD_db_auth', ''),
+            'unix_socket' => '',
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
