@@ -14,15 +14,9 @@ use  App\Http\Controllers\AbsensiController as Absensi;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return redirect()->route('absensi.index');
+Route::get('dashboard', function () {
+    return view('dashboard.dashboard');
 });
-
-Route::get('/test', function () {
-    return view('welcome');
-});
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -34,3 +28,4 @@ Route::middleware([
 });
 
 Route::resource('absensi', Absensi::class);
+
