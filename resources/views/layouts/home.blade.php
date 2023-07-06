@@ -15,12 +15,14 @@
     <link rel="shortcut icon" href="{{ url('skote/assets/images/favicon.ico') }}">
 
     <!-- Bootstrap Css -->
-    <link rel="shortcut icon" href="{{ url('skote/assets/css/bootstrap.min.css') }}">
-    <!-- Icons Css -->
+    <link  href="{{ url('skote/assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
 
-    <link rel="shortcut icon" href="{{ url('skote/assets/css/icons.min.css') }}">
+    <!-- Icons Css -->
+    <link href="{{ url('skote/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+
     <!-- App Css-->
-    <link rel="shortcut icon" href="{{ url('skote/assets/css/app.min.css') }}">
+    <link href="{{ url('skote/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+
     @yield('css')
 </head>
 
