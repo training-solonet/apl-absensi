@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use  App\Http\Controllers\AbsensiController as Absensi;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('absensi.index');
 });
 
 Route::get('/test', function () {
@@ -30,3 +32,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::resource('absensi', Absensi::class);
