@@ -1,5 +1,4 @@
 @extends('layouts.home')
-
 @section('content')
     <div class="page-content">
         <div class="container-fluid">
@@ -34,7 +33,7 @@
                                     </div>
                                 </div>
                                 <div class="col-5 align-self-end">
-                                    <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                                    <img src="{{ url('skote/assets/images/profile-img.png') }}" alt="" class="img-fluid">
                                 </div>
                             </div>
                         </div>
@@ -42,7 +41,7 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="avatar-md profile-user-wid mb-4">
-                                        <img src="assets/images/users/avatar-1.jpg" alt=""
+                                        <img src="{{ url('skote/assets/images/users/avatar-1.jpg') }}" alt=""
                                             class="img-thumbnail rounded-circle">
                                     </div>
                                     <h5 class="font-size-15 text-truncate">Henry Price</h5>
@@ -716,4 +715,6 @@
         </div>
     </div>
     <!-- end modal -->
+@endsection
+@section('js')
 @endsection

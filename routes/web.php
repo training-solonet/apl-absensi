@@ -14,7 +14,7 @@ use  App\Http\Controllers\AbsensiController as Absensi;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('dashboard', function () {
+Route::get('/', function () {
     return view('dashboard.dashboard');
 });
 Route::middleware([
