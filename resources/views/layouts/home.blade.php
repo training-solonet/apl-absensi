@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <!-- Mirrored from themesbrand.com/skote-django/layouts/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 20 Jun 2023 05:06:27 GMT -->
 
 <head>
@@ -19,7 +19,6 @@
 
     <!-- Icons Css -->
     <link href="{{ url('skote/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-
     <!-- App Css-->
     <link href="{{ url('skote/assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 
@@ -77,7 +76,6 @@
 
     <!-- App js -->
     <script src="{{ url('skote/assets/js/app.js') }}"></script>
-
     @yield('js')
 </body>
 

@@ -14,7 +14,6 @@
             <!-- end page title -->
 
             <div class="row">
-                <div class="col-xl-12">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card mini-stats-wid">
@@ -580,4 +579,6 @@
         <!-- container-fluid -->
     </div>
     <!-- End Page-content -->
+@endsection
+@section('js')
 @endsection
