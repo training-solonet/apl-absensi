@@ -7,5 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Absensi extends Model
 {
-    use HasFactory;
+    protected $table = 'absensi.absen';
+
+    protected $fillable = [
+        'id',
+        'id_siswa',
+        'uid',
+        'tanggal',
+        'waktu_masuk',
+        'waktu_keluar',
+        'keterangan',
+    ];
+
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'id_siswa', 'id');
+    }
 }

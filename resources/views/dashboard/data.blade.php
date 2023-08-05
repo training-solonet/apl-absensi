@@ -71,11 +71,10 @@
                                 <div class="card-body">
                                     <div class="d-flex">
                                         <div class="flex-grow-1">
-                                            <p class="text-muted fw-medium">Belum/Tidak Hadir</p>
+                                            <p class="text-muted fw-medium">Tidak Hadir</p>
                                             @php
-                                                 $tidakhadir = DB::connection('mysql2')->table('siswa')->count() -
-                                                                DB::connection('mysql')->table('absen')->where('waktu_masuk', 'LIKE', $tanggalHariIni . '%')
-                                                                                                    ->whereNotNull('waktu_masuk')
+                                                 $tidakhadir = DB::connection('mysql')->table('absen')->where('waktu_masuk', 'LIKE', $tanggalHariIni . '%')
+                                                                                                    ->whereNull('waktu_masuk')
                                                                                                     ->count();
                                             @endphp
                                             <h4 class="mb-0">{{ $tidakhadir }}</h4>
@@ -95,7 +94,7 @@
                     </div>
                     <!-- end row -->
 
-                    {{-- <div class="row">
+                    <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
@@ -164,9 +163,9 @@
                                 </div>
                             </div>
                         </div> <!-- end col -->
-                    </div> <!-- end row --> --}}
+                    </div> <!-- end row -->
                 </div>
-            
+            </div>
             <!-- end row -->
 
 
@@ -174,50 +173,9 @@
 
 
             <!-- end row -->
-        
+        </div>
         <!-- container-fluid -->
-    @php
-        $today = now()->toDateString();
-        $siswaTerlambat = DB::connection('mysql')
-                                ->table('absen')
-                                ->join('siswa.siswa', 'absen.id_siswa', '=', 'siswa.id')
-                                ->select('siswa.siswa.nama', 'absen.waktu_masuk')
-                                ->where('absen.keterangan', 'Terlambat')
-                                ->whereDate('absen.waktu_masuk', $today)
-                                ->get();
-    @endphp
-    <div class="container mt-5">
-        @if($siswaTerlambat->count() > 0)
-        <div class="row row-cols-3">
-            @foreach($siswaTerlambat as $lateStudent)
-            <div class="col-md-4">
-                <div class="card mini-stats-wid">
-                    <div class="card-body d-flex align-items-center">
-                        <div class="flex-shrink-0 me-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h5 class="card-title">{{ $lateStudent->nama }}</h5>
-                            <p class="card-text text-danger text-size-large">Terlambat Hari Ini</p>
-                            {{-- <p class="card-text">Datang jam : {{ $lateStudent->waktu_masuk}}</p> --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-        @else
-        <div class="row">
-            <div class="col text-center">
-                <p>Tidak ada siswa yang terlambat hari ini.</p>
-            </div>
-        </div>
-        @endif
     </div>
-</div>
-</div>
     <!-- End Page-content -->
 @endsection
 @section('js')
