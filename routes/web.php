@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-use  App\Http\Controllers\AbsensiController as Absensi;
+use  App\Http\Controllers\AbsensiController;
+use  App\Http\Controllers\SiswaController;
+use  App\Http\Controllers\AbController;
+use  App\Http\Controllers\UidController;
+// use App\Http\Controllers\Api\AbsensiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +30,27 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::resource('absensi', Absensi::class);
+// Route::resource('absensi', AbsensiController::class, 'create');
 
+// Route::get('tes', 'AbController@index');
+// Route::get('tes', 'AbController@index')->name('pic');
+
+Route::get('tes', [AbsensiController::class, 'index']);
+
+Route::get('/siswa',[SiswaController::class, 'store']);
+
+Route::get('/nama',[UidController::class, 'store']);
+
+Route::get('/uid',[AbsensiController::class, 'store2']);
+
+// Route::get('/laporan', function () {
+//     return view('dashboard.laporan');
+// });
+Route::get('/data', function () {
+    return view('data');
+});
+// Route::get('/laporan', [AbsensiController::class, 'laporan']);
+// Route::get('/laporan/rekap', [AbsensiController::class, 'rekap']);
+
+Route::get('/laporan',[AbsensiController::class, 'laporan'])->name('laporan');
+Route::get('/laporan/cari', [AbsensiController::class, 'rekap'])->name('filter');

@@ -11,6 +11,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ url('skote/assets/images/favicon.ico') }}">
 
@@ -76,6 +77,23 @@
 
     <!-- App js -->
     <script src="{{ url('skote/assets/js/app.js') }}"></script>
+    {{-- <script>
+        // Mendapatkan tanggal hari ini
+        var today = new Date();
+        
+        // Mendapatkan tanggal hari Senin terdekat
+        var monday = new Date(today);
+        monday.setDate(monday.getDate() - (monday.getDay() + 6) % 7 + 0);
+        
+        // Mengisi kolom header dengan tanggal hari Senin-Sabtu
+        var headerRow = document.querySelector('thead tr');
+        for (var i = 0; i < 6; i++) {
+          var date = new Date(monday);
+          date.setDate(date.getDate() + i);
+          var formattedDate = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+          headerRow.children[i + 2].textContent = formattedDate;
+        } --}}
+      </script>
     @yield('js')
 </body>
 

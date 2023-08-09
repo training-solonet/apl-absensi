@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class SiswaController extends Controller
@@ -11,7 +12,7 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -27,7 +28,19 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nama = $request->input('nama');
+        $masuk = $request->input('date_in');
+        $keluar = $request->input('date_out');
+
+        // Simpan data absensi ke database
+        $absensi = new Siswa;
+        $absensi->nama = $nama;
+        $absensi->date_in = $masuk;
+        $absensi->date_out = $keluar;
+        $absensi->save();
+
+        // Response jika data berhasil disimpan
+        return response()->json(['message' => 'Data siswa berhasil disimpan'], 200);
     }
 
     /**
