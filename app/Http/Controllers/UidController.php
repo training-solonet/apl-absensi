@@ -52,9 +52,6 @@ class UidController extends Controller
         $uid = $request->uid;
         $uidData = Uid::where('uid', $uid)->with('siswa')->first();
        
-        // $hariini = Carbon::now()->format('Y-m-d');
-        // $alfa = Absensi::where('id_siswa')
-        // ->whereNull('waktu_masuk','waktu_keluar' ,'=',$hariini)->get();
         $hariini = Carbon::today()->format('Y-m-d');
         $siswa = Siswa::all();
         $absentSiswa = [];
@@ -90,17 +87,7 @@ class UidController extends Controller
                 }
     
                 Session::put($absenPagiKey, true);
-                // $array=[
-                //     'id_siswa' => $uidData->id_siswa,
-                //     'uid' => $uidData->uid,
-                //    'waktu_masuk' => $waktuMasuk,
-                //    'tanggal' => $today,
-                //     'waktu_keluar' => null,
-                //     'keterangan' => null
-                // ];
-                // return $array;
-
-
+               
                 Absensi::create([
                     'id_siswa' => $uidData->id_siswa,
                     'uid' => $uidData->uid,

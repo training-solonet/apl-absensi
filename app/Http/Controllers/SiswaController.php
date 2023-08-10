@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Siswa;
+use App\Models\Absensi;
 use Illuminate\Http\Request;
 
 class SiswaController extends Controller
@@ -12,7 +13,31 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        
+        //get tanggal hari ini
+        $tanggalHariIni = date('Y-m-d');
+
+        //menghitung jumlah siswa PKL aktif
+        $jumlahsiswa = Siswa::where('status', '=', 'Aktif')->count();
+        //menghitung siswa PKL aktif yg hadir
+        $jumlahhadir = Absensi::where('waktu_masuk', 'LIKE', $tanggalHariIni . '%')
+                                                            ->whereNotNull('waktu_masuk')
+                                                            ->count();
+        //menghitung siswa PKL yg belum hadir
+        $tidakhadir = Siswa::where('status', '=', 'Aktif')->count() -
+                       Absensi::where('waktu_masuk', 'LIKE', $tanggalHariIni . '%')
+                                                           ->whereNotNull('waktu_masuk')
+                                                           ->count();
+        //get siswa terlambat/alfa
+        $siswaTerlambat = Absensi::with('siswa')
+                                ->where('absen.keterangan', 'Terlambat' ,'alfa')
+                                ->whereDate('absen.waktu_masuk', $tanggalHariIni)
+                                ->get();
+        return view('dashboard.dashboard', [
+                    'jumlahsiswa' => $jumlahsiswa,
+                    'jumlahhadir' => $jumlahhadir,
+                    'tidakhadir' => $tidakhadir,
+                    'siswaTerlambat' => $siswaTerlambat
+                    ]);
     }
 
     /**
@@ -28,19 +53,7 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $nama = $request->input('nama');
-        $masuk = $request->input('date_in');
-        $keluar = $request->input('date_out');
-
-        // Simpan data absensi ke database
-        $absensi = new Siswa;
-        $absensi->nama = $nama;
-        $absensi->date_in = $masuk;
-        $absensi->date_out = $keluar;
-        $absensi->save();
-
-        // Response jika data berhasil disimpan
-        return response()->json(['message' => 'Data siswa berhasil disimpan'], 200);
+       
     }
 
     /**
