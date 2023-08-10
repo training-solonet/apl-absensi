@@ -13,8 +13,8 @@ class Siswa extends Model
 {
     use HasFactory;
     protected $connection = 'mysql2';
-    protected $table = 'siswa.siswa';
-    protected $fillable = ['nama', 'date_in', 'date_out'];
+    protected $table = 'students';
+    protected $fillable = ['name', 'date_in', 'date_out', 'status'];
 
     public function absensi(){
         return $this->hasMany(Absensi::class, 'id_siswa', 'id');

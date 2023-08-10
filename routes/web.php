@@ -35,7 +35,7 @@ Route::middleware([
 // Route::get('tes', 'AbController@index');
 // Route::get('tes', 'AbController@index')->name('pic');
 
-Route::get('tes', [AbsensiController::class, 'index']);
+Route::get('/tes', [AbsensiController::class, 'index']);
 
 Route::get('/siswa',[SiswaController::class, 'store']);
 
@@ -47,7 +47,7 @@ Route::get('/uid',[AbsensiController::class, 'store2']);
 //     return view('dashboard.laporan');
 // });
 Route::get('/data', function () {
-    return view('data');
+    return view('dashboard.data');
 });
 // Route::get('/laporan', [AbsensiController::class, 'laporan']);
 // Route::get('/laporan/rekap', [AbsensiController::class, 'rekap']);

@@ -22,7 +22,7 @@
                                         <div class="flex-grow-1">
                                             <p class="text-muted fw-medium">Jumlah Siswa PKL</p>
                                             @php
-                                                $jumlahsiswa = DB::connection('mysql2')->table('siswa')->count()
+                                                $jumlahsiswa = DB::connection('mysql2')->table('students')->where('status', '=', 'Aktif')->count()
                                             @endphp
                                             <h4 class="mb-0">{{ $jumlahsiswa }}</h4>
                                         </div>
@@ -73,7 +73,7 @@
                                         <div class="flex-grow-1">
                                             <p class="text-muted fw-medium">Belum/Tidak Hadir</p>
                                             @php
-                                                 $tidakhadir = DB::connection('mysql2')->table('siswa')->count() -
+                                                 $tidakhadir = DB::connection('mysql2')->table('students')->where('status', '=', 'Aktif')->count() -
                                                                 DB::connection('mysql')->table('absen')->where('waktu_masuk', 'LIKE', $tanggalHariIni . '%')
                                                                                                     ->whereNotNull('waktu_masuk')
                                                                                                     ->count();
@@ -180,8 +180,8 @@
         $today = now()->toDateString();
         $siswaTerlambat = DB::connection('mysql')
                                 ->table('absen')
-                                ->join('siswa.siswa', 'absen.id_siswa', '=', 'siswa.id')
-                                ->select('siswa.siswa.nama', 'absen.waktu_masuk')
+                                ->join('students', 'absen.id_siswa', '=', 'students.id')
+                                ->select('students.name', 'absen.waktu_masuk')
                                 ->where('absen.keterangan', 'Terlambat')
                                 ->whereDate('absen.waktu_masuk', $today)
                                 ->get();
