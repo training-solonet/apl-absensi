@@ -17,9 +17,6 @@ use  App\Http\Controllers\UidController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
-    return view('dashboard.dashboard');
-});
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -29,28 +26,17 @@ Route::middleware([
         return view('dashboard.dashboard');
     })->name('dashboard');
 });
-
-// Route::resource('absensi', AbsensiController::class, 'create');
-
-// Route::get('tes', 'AbController@index');
-// Route::get('tes', 'AbController@index')->name('pic');
-
-Route::get('/tes', [AbsensiController::class, 'index']);
-
-Route::get('/siswa',[SiswaController::class, 'store']);
-
-Route::get('/nama',[UidController::class, 'store']);
-
-Route::get('/uid',[AbsensiController::class, 'store2']);
-
-// Route::get('/laporan', function () {
-//     return view('dashboard.laporan');
-// });
-Route::get('/data', function () {
-    return view('dashboard.data');
-});
-// Route::get('/laporan', [AbsensiController::class, 'laporan']);
-// Route::get('/laporan/rekap', [AbsensiController::class, 'rekap']);
-
-Route::get('/laporan',[AbsensiController::class, 'laporan'])->name('laporan');
-Route::get('/laporan/cari', [AbsensiController::class, 'rekap'])->name('filter');
+// route resource untuk absen siswa
+Route::resource('/absen',UidController::class,);
+//route resource dashboard
+Route::resource('/', SiswaController::class);
+//route resource laporan
+Route::resource('/laporan', AbsensiController::class)->names([
+    'index' => 'laporan',
+    'store' => 'filter',
+]);
+//route resource filter
+Route::resource('/laporan/cari', AbsensiController::class)->names([
+    'index' => 'laporan',
+    'store' => 'filter',
+]);
