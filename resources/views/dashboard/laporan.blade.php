@@ -22,7 +22,8 @@
                             @php
                                 Session_start();
                             @endphp
-                            <form action="{{ url('/laporan/cari.store') }}" method="GET">
+                            <form action="{{ route('laporan.store') }}" method="POST">
+                                @csrf
                                 <div class="row mb-3" style="margin-top: 3%">
                                     <div class="col-md-4">
                                         <label for="nama" class="form-label">Pilih Nama:</label>
