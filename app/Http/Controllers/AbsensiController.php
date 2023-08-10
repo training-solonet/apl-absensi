@@ -36,9 +36,10 @@ class AbsensiController extends Controller
 
         $namaSiswaList = Siswa::all(); //mengambil semua data siswa
         //mengambil data absen selama 1 minggu senin-sabtu
-        $datasenin = Siswa::with(['absensi' => function ($query) use ($dates){
-            $query->where('tanggal', '>=',$dates[0])
-                    ->where('tanggal', '<=',$dates[5]);
+        $datasenin = Siswa::where('status', 'Aktif')
+                            ->with(['absensi' => function ($query) use ($dates){
+                        $query->where('tanggal', '>=',$dates[0])
+                            ->where('tanggal', '<=',$dates[5]);
         }])->get();
         return view('dashboard.laporan',[
             'date' => $dates,

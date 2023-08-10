@@ -22,7 +22,7 @@
                             @php
                                 Session_start();
                             @endphp
-                            <form action="{{ route('filter') }}" method="GET">
+                            <form action="{{ url('/laporan/cari.store') }}" method="GET">
                                 <div class="row mb-3" style="margin-top: 3%">
                                     <div class="col-md-4">
                                         <label for="nama" class="form-label">Pilih Nama:</label>
@@ -111,8 +111,8 @@
                                                 $keteranganClass = '';
                                                 break;
                                             }
-                                        @endphp
-                                        <td colspan="2" class="{{ $keteranganClass }}">{{$monday->keterangan}}</td>
+                                        @endphp                               
+                                        <td colspan="2" class="{{ $keteranganClass }}">{{ $monday->keterangan }}</td>
                                     @endforeach
                                       {{-- Add columns for "Keterangan" here if needed --}}
                                   </tr>

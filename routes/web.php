@@ -31,12 +31,6 @@ Route::resource('/absen',UidController::class,);
 //route resource dashboard
 Route::resource('/', SiswaController::class);
 //route resource laporan
-Route::resource('/laporan', AbsensiController::class)->names([
-    'index' => 'laporan',
-    'store' => 'filter',
-]);
+Route::resource('/laporan', AbsensiController::class);
 //route resource filter
-Route::resource('/laporan/cari', AbsensiController::class)->names([
-    'index' => 'laporan',
-    'store' => 'filter',
-]);
+Route::resource('/laporan/cari', AbsensiController::class);

@@ -19,7 +19,7 @@
                     <div class="card" style="margin-right: -1%">
                         <div class="card-body">
                             <h4 class="card-title">Data Absensi</h4>
-                            <form action="{{ route('filter') }}" method="GET">
+                            <form action="{{ url('/laporan/cari') }}" method="GET">
                                 <div class="row mb-3" style="margin-top: 3%">
                                     <div class="col-md-4">
                                         <label for="nama" class="form-label">Pilih Nama:</label>
@@ -45,7 +45,7 @@
                                         </form>
                                     </div>
                                     <div class="col-1" style="margin-left: -2%"> 
-                                        <form action="{{ route('laporan') }}">
+                                        <form action="{{ url('/laporan') }}">
                                             <button type="submit" class="btn btn-warning">Kembali</button>
                                         </form>
                                     </div>
