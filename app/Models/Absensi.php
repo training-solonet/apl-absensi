@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Absensi extends Model
 {
-    protected $table = 'absensi.absen';
+    protected $table = 'absen';
+
+    protected $connection = 'mysql';
+    
 
     protected $fillable = [
         'id',

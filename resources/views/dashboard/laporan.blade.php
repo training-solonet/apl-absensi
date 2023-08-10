@@ -29,7 +29,7 @@
                                         <select class="form-select" id="nama" name="nama">
                                             <option value="">Pilih Nama</option>
                                             @foreach ($siswaList as $siswa)
-                                                <option value="{{ $siswa->nama }}">{{ $siswa->nama }}</option>
+                                                <option value="{{ $siswa->name }}">{{ $siswa->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -44,12 +44,12 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary" style="margin-bottom: 2%">Filter</button>
                             </form>
-                          
+                          <div class="table-responsive">
                             <table id="datatable" class="table table-bordered border-dark">
                                 <thead>
                                     <tr class="text-center">
                                         <th rowspan="2" style="vertical-align: middle;">No</th>
-                                        <th rowspan="2" colspan="2" style="vertical-align: middle;">Nama</th>
+                                        <th rowspan="2" colspan="2" style="vertical-align: middle; width:2%;">Nama</th>
                                         @foreach ($date as $data)
                                             <th colspan="2">{{ $data }}</th>
                                         @endforeach
@@ -68,7 +68,7 @@
                                   @foreach ($absen as $data)
                                   <tr class="text-center">
                                       <td rowspan="2" style="vertical-align: middle;">{{ $no++ }}</td>
-                                      <td colspan="2" style="vertical-align: middle">{{ $data->nama }}</td>
+                                      <td colspan="2" style="vertical-align: middle">{{ $data->name }}</td>
                                             @foreach ($data->absensi as $monday)
                                             @php
                                                 $waktuMasuk = strtotime($monday->waktu_masuk);
@@ -119,6 +119,7 @@
                               @endforeach
                                 </tbody>
                             </table>
+                          </div>
                             
                         </div>
                     </div>

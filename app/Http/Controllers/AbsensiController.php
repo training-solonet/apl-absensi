@@ -23,6 +23,14 @@ class AbsensiController extends Controller
                                                                                                     ->get();
                                                                                                     // ->count();
                                                                                                     return response()->json($jumlahhadir);
+        $today = now()->toDateString();
+        $siswaTerlambat = Absensi::join('students', 'absen.id_siswa', '=', 'students.id')
+                                ->select('students.name', 'absen.waktu_masuk')
+                                ->where('absen.keterangan', 'Terlambat')
+                                ->whereDate('absen.waktu_masuk', $today)
+                                ->get();
+        return $siswaTerlambat;
+                                                                                            
     }
 
     /**
@@ -127,6 +135,7 @@ class AbsensiController extends Controller
         //     ->get();
 
         $namaSiswaList = Siswa::all();
+                                // return $namaSiswaList;
 
         $today = Carbon::today()->format('Y-m-d');
         $data = Siswa::with(['absensi' => function ($query) use ($today){
