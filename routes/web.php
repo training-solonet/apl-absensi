@@ -27,7 +27,7 @@ Route::middleware([
     })->name('dashboard');
 });
 // route resource untuk absen siswa
-Route::resource('/absen',UidController::class,);
+Route::get('absen',[UidController::class, 'store']);
 //route resource dashboard
 Route::resource('/', SiswaController::class);
 //route resource laporan

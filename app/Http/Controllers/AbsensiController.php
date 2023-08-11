@@ -67,7 +67,7 @@ class AbsensiController extends Controller
             'nama' => 'required|string|not_in:' . implode(',', (array) $request->old('nama'))
         ]);
         $nama = $request->session()->get('nama', $request->input('nama'));
-        $idsiswa = Siswa::where('nama', $nama)
+        $idsiswa = Siswa::where('name', $nama)
                         ->select('id')        
                         ->first();   
         $idA = $idsiswa->id;             
@@ -96,12 +96,27 @@ class AbsensiController extends Controller
         };
         $namaSiswaList = Siswa::all();
 
+        $jumlahHadir = Absensi::where('id_siswa', $idA)
+                                ->where('keterangan', '=', 'Hadir')
+                                ->count();
+                                
+        $jumlahTerlambat = Absensi::where('id_siswa', $idA)
+                                ->where('keterangan', '=', 'Terlambat')
+                                ->count();
+
+        $jumlahAlfa = Absensi::where('id_siswa', $idA)
+                                ->where('keterangan', '=', 'alfa')
+                                ->count();
+
         return view('dashboard.laporan-rekap',[
             'absensis' => $filter,
             'siswa' =>$namaSiswaList,
             'dari' =>$tanggalDari,
             'sampai' =>$tanggalSampai,
             'nama' =>$nama,
+            'hadir' =>$jumlahHadir,
+            'terlambat' =>$jumlahTerlambat,
+            'alfa' =>$jumlahAlfa,
         ]);
     }
 

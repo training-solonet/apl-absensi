@@ -113,7 +113,7 @@
                                                 break;
                                             }
                                         @endphp                               
-                                        <td colspan="2" class="{{ $keteranganClass }}">{{ $monday->keterangan }}</td>
+                                        <td style="vertical-align: middle" colspan="2" class="{{ $keteranganClass }}">{{ $monday->keterangan }}</td>
                                     @endforeach
                                       {{-- Add columns for "Keterangan" here if needed --}}
                                   </tr>

@@ -19,7 +19,7 @@
                     <div class="card" style="margin-right: -1%">
                         <div class="card-body">
                             <h4 class="card-title">Data Absensi</h4>
-                            <form action="{{ url('/laporan/cari') }}" method="GET">
+                            <form action="{{ route('laporan.store') }}" method="GET">
                                 <div class="row mb-3" style="margin-top: 3%">
                                     <div class="col-md-4">
                                         <label for="nama" class="form-label">Pilih Nama:</label>
@@ -45,9 +45,16 @@
                                         </form>
                                     </div>
                                     <div class="col-1" style="margin-left: -2%"> 
-                                        <form action="{{ url('/laporan') }}">
+                                        <form action="{{ route('laporan.index') }}">
                                             <button type="submit" class="btn btn-warning">Kembali</button>
                                         </form>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 d-flex align-items-center justify-content-between">
+                                        <p>Hadir : {{$hadir}}</p>
+                                        <p>Terlambat : {{$terlambat}}</p>
+                                        <p>Alfa : {{$alfa}}</p>
                                     </div>
                                 </div>
                             </div>

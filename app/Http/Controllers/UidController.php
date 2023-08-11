@@ -50,7 +50,7 @@ class UidController extends Controller
     public function store(Request $request)
     {
         $uid = $request->uid;
-        $uidData = Uid::where('uid', $uid)->with('siswa')->first();
+        $uidData = Uid::where('uid', $uid)->with('cji_siswa')->first();
        
         $hariini = Carbon::today()->format('Y-m-d');
         $siswa = Siswa::all();
@@ -71,7 +71,7 @@ class UidController extends Controller
                 ]);
             }
     
-            $namaSiswa = $uidData->siswa->nama;
+            $namaSiswa = $uidData->cji_siswa->name;
             $waktuMasuk = Carbon::now();
             $batasWaktuMasuk = Carbon::create(null, null, null, 6, 00, 0);
             $batasWaktuTelat = Carbon::create(null, null, null, 9, 0, 0);
@@ -90,7 +90,7 @@ class UidController extends Controller
                
                 Absensi::create([
                     'id_siswa' => $uidData->id_siswa,
-                    'uid' => $uidData->uid,
+                    'uid' => $uid,
                    'waktu_masuk' => $waktuMasuk,
                    'tanggal' => $today,
                     'waktu_keluar' => null,
@@ -111,7 +111,7 @@ class UidController extends Controller
                 Session::put($absenPagiKey, true);
                 Absensi::create([
                     'id_siswa' => $uidData->id_siswa,
-                    'uid' => $uidData->uid,
+                    'uid' => $uid,
                     'tanggal' => $today,
                    'waktu_masuk' => $waktuMasuk,
                     'waktu_keluar' => null,
@@ -160,7 +160,7 @@ class UidController extends Controller
                 // Jika data absensi pagi belum ada, buat record baru
                 Absensi::create([
                     'id_siswa' => $uidData->id_siswa,
-                    'uid' => $uidData->uid,
+                    'uid' => $uid,
                     'tanggal' => $today,
                     'waktu_masuk' => $waktuMasuk,
                     'waktu_keluar' => $waktuMasuk,
