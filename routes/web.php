@@ -5,6 +5,8 @@ use  App\Http\Controllers\AbsensiController;
 use  App\Http\Controllers\SiswaController;
 use  App\Http\Controllers\AbController;
 use  App\Http\Controllers\UidController;
+use Illuminate\Routing\Route as RoutingRoute;
+
 // use App\Http\Controllers\Api\AbsensiController;
 
 /*
@@ -17,6 +19,10 @@ use  App\Http\Controllers\UidController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -26,7 +32,7 @@ Route::middleware([
         return view('dashboard.dashboard');
     })->name('dashboard');
 });
-// route resource untuk absen siswa
+// route untuk absen siswa
 Route::get('absen',[UidController::class, 'store']);
 //route resource dashboard
 Route::resource('/', SiswaController::class);

@@ -32,6 +32,7 @@ class SiswaController extends Controller
                                 ->where('absen.keterangan', 'Terlambat' ,'alfa')
                                 ->whereDate('absen.waktu_masuk', $tanggalHariIni)
                                 ->get();
+                                
         return view('dashboard.dashboard', [
                     'jumlahsiswa' => $jumlahsiswa,
                     'jumlahhadir' => $jumlahhadir,

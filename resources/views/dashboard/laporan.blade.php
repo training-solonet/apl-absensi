@@ -93,30 +93,38 @@
                                             <td></td>
                                         @endfor
                                     </tr>
-                                  <tr class="text-center">
-                                      <td colspan="2">Keterangan</td>
-                                      @foreach ($data->absensi as $monday)
-                                        @php
-                                            $keteranganClass = '';
-                                            switch ($monday->keterangan) {
-                                                case 'Terlambat':
-                                            $keteranganClass = 'table-warning';
-                                                break;
-                                            case 'Hadir':
-                                            $keteranganClass = 'table-success';
-                                                break;
-                                            case 'alfa':
-                                            $keteranganClass = 'table-danger';
-                                                break;
-                                            default:
+                                    <tr class="text-center">
+                                        <td colspan="2">Keterangan</td>
+                                        @foreach ($data->absensi as $monday)
+                                            @php
                                                 $keteranganClass = '';
-                                                break;
-                                            }
-                                        @endphp                               
-                                        <td style="vertical-align: middle" colspan="2" class="{{ $keteranganClass }}">{{ $monday->keterangan }}</td>
-                                    @endforeach
-                                      {{-- Add columns for "Keterangan" here if needed --}}
-                                  </tr>
+                                                switch ($monday->keterangan) {
+                                                    case 'Terlambat':
+                                                        $keteranganClass = 'table-warning';
+                                                        break;
+                                                    case 'Hadir':
+                                                        $keteranganClass = 'table-success';
+                                                        break;
+                                                    case 'alfa':
+                                                        $keteranganClass = 'table-danger';
+                                                        break;
+                                                    default:
+                                                        $keteranganClass = '';
+                                                        break;
+                                                }
+                                            @endphp                               
+                                            <td style="vertical-align: middle" colspan="2" class="{{ $keteranganClass }}">{{ $monday->keterangan }}</td>
+                                        @endforeach
+                                        @php
+                                            $totalCols = 6; // Jumlah total kolom yang diinginkan (6 x 2)
+                                            $existingCols = count($data->absensi) * 2; // Jumlah kolom yang sudah ada (datang + pulang)
+                                            $emptyCols = $totalCols - $existingCols; // Selisih untuk menambahkan kolom kosong
+                                        @endphp
+                                        @for ($i = 0; $i < $emptyCols; $i++)
+                                            <td colspan="2"></td>
+                                        @endfor
+                                        {{-- Add columns for "Keterangan" here if needed --}}
+                                    </tr>
                               @endforeach
                                 </tbody>
                             </table>
