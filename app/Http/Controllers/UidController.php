@@ -56,8 +56,12 @@ class UidController extends Controller
         $siswa = Siswa::all();
         $absentSiswa = [];
         
+        if (Carbon::now()->isSunday()) {
+            return response()->json([
+                'message' => 'Hari ini adalah hari Minggu, tidak dapat melakukan absen.',
+            ]);
+        }
            
-    
         if ($uidData) {
             $today = Carbon::now()->format('Y-m-d');
     
@@ -74,15 +78,19 @@ class UidController extends Controller
             $namaSiswa = $uidData->cji_siswa->name;
             $waktuMasuk = Carbon::now();
             $batasWaktuMasuk = Carbon::create(null, null, null, 6, 00, 0);
-            $batasWaktuTelat = Carbon::create(null, null, null, 9, 0, 0);
-            $absenPulang = Carbon::create(null, null, null, 10, 0, 0);
+            $batasWaktuTelat = Carbon::create(null, null, null, 8, 30, 0);
+            if ($waktuMasuk->isSaturday()) {
+                $absenPulang = Carbon::create(null, null, null, 14, 0, 0); // Absen pulang jam 12 pada hari Senin
+            } else {
+                $absenPulang = Carbon::create(null, null, null, 16, 0, 0); // Jam default untuk hari-hari selain Senin
+            }
             $batasAbsenPulang = Carbon::create(null, null, null, 23, 59, 59);
     
             if ($waktuMasuk->between($batasWaktuMasuk, $batasWaktuTelat)) {
                 // Cek apakah sudah absen pagi sebelumnya
                 if (Session::has($absenPagiKey)) {
                     return response()->json([
-                        'message' => 'Anda sudah melakukan absen pagi pada hari ini.',
+                        'message' => 'Anda sudah melakukan absen datang pada hari ini.',
                     ]);
                 }
     
@@ -97,14 +105,14 @@ class UidController extends Controller
                     'keterangan' => null
                 ]);
                 return response()->json([
-                    'message' => 'Absen pagi berhasil.',
+                    'message' => 'Absen datang berhasil.',
                 ]);
 
             // telat
             } elseif ($waktuMasuk->between($batasWaktuTelat, $absenPulang)) {
                 if (Session::has($absenPagiKey)) {
                     return response()->json([
-                        'message' => 'Anda sudah melakukan absen pagi pada hari iniiii.',
+                        'message' => 'Anda sudah melakukan absen datang pada hari iniiii.',
                     ]);
                 }
     
@@ -124,7 +132,7 @@ class UidController extends Controller
                 // Cek apakah sudah absen sore sebelumnya
                 if (Session::has($absenSoreKey)) {
                     return response()->json([
-                        'message' => 'Anda sudah melakukan absen sore pada hari ini.',
+                        'message' => 'Anda sudah melakukan absen pulang pada hari ini.',
                     ]);
                 }
             
@@ -144,7 +152,7 @@ class UidController extends Controller
                             'waktu_keluar' => $waktuMasuk,
                         ]);
                         return response()->json([
-                            'message' => 'Anda Terlambat pada absen pagi.',
+                            'message' => 'Anda Terlambat pada absen datang.',
                         ]);
                     }
         
@@ -153,7 +161,7 @@ class UidController extends Controller
                         'keterangan' => "Hadir"
                     ]);
                     return response()->json([
-                        'message' => 'Absen sore berhasil.',
+                        'message' => 'Absen pulang berhasil.',
                     ]);
                 }
             
@@ -168,7 +176,7 @@ class UidController extends Controller
                 ]);
             
                 return response()->json([
-                    'message' => 'Absen sore berhasil.',
+                    'message' => 'Absen pulang berhasil.',
                 ]);
             
                

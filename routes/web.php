@@ -5,6 +5,8 @@ use  App\Http\Controllers\AbsensiController;
 use  App\Http\Controllers\SiswaController;
 use  App\Http\Controllers\AbController;
 use  App\Http\Controllers\UidController;
+use  App\Http\Controllers\StudentsController;
+use  App\Http\Controllers\EditController;
 use Illuminate\Routing\Route as RoutingRoute;
 
 // use App\Http\Controllers\Api\AbsensiController;
@@ -28,13 +30,18 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard.dashboard');
-    })->name('dashboard');
+   //route resource dashboard
+Route::resource('/', SiswaController::class);
 });
 // route untuk absen siswa
 Route::get('absen',[UidController::class, 'store']);
-//route resource dashboard
-Route::resource('/', SiswaController::class);
 //route resource laporan
 Route::resource('laporan', AbsensiController::class);
+//route resource data
+Route::resource('data', StudentsController::class);
+//route resource form edit
+Route::resource('edit', EditController::class);
+
+Route::get('/index', [StudentsController::class, 'index']);
+
+Route::get('/edit/form/{name}', [EditController::class, 'index'])->name('edit.form');

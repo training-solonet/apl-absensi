@@ -19,14 +19,15 @@
                     <div class="card" style="margin-right: -1%">
                         <div class="card-body">
                             <h4 class="card-title">Data Absensi</h4>
-                            <form action="{{ route('laporan.store') }}" method="GET">
+                            <form action="{{ route('laporan.store') }}" method="POST">
+                                @csrf
                                 <div class="row mb-3" style="margin-top: 3%">
                                     <div class="col-md-4">
                                         <label for="nama" class="form-label">Pilih Nama:</label>
                                         <select class="form-select" id="nama" name="nama">
                                             <option value="" selected disabled>{{ old('nama',$nama) }}</option>
                                             @foreach ($siswa as $siswa)
-                                                <option  value="{{ $siswa->nama }}">{{ $siswa->nama }}</option required>
+                                                <option  value="{{ $siswa->name }}">{{ $siswa->name }}</option required>
                                             @endforeach
                                         </select>
                                     </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Siswa;
 use App\Models\Absensi;
+use App\Models\Uid;
 use Illuminate\Http\Request;
 
 class SiswaController extends Controller
@@ -33,7 +34,7 @@ class SiswaController extends Controller
                                 ->whereDate('absen.waktu_masuk', $tanggalHariIni)
                                 ->get();
                                 
-        return view('dashboard.dashboard', [
+        return view('dashboard.dashboard',[
                     'jumlahsiswa' => $jumlahsiswa,
                     'jumlahhadir' => $jumlahhadir,
                     'tidakhadir' => $tidakhadir,
