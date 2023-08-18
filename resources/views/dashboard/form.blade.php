@@ -30,15 +30,6 @@
           <div class="col-sm-4">
               <input type="text" class="form-control" name="txtid" value="{{ $student->name }}" readonly>
           </div>
-
-          {{-- <div class="col-sm-4">
-            <select class="form-select form-select-sm" name="txtid" id="txtid">
-                <option value="" selected>-Pilih-</option>
-                @foreach($studentsAktif as $student)
-                <option value="{{ $student->name }}">{{ $student->name }}</option>
-                @endforeach
-            </select>
-        </div> --}}
         </div>
 
         <div class="row mb-3">

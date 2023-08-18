@@ -33,6 +33,8 @@ Route::middleware([
    //route resource dashboard
 Route::resource('/', SiswaController::class);
 });
+//Route Logout
+Route::get('/logout',[AbsensiController::class,'destroy'])->middleware('auth')->name('logout');
 // route untuk absen siswa
 Route::get('absen',[UidController::class, 'store']);
 //route resource laporan
@@ -45,3 +47,4 @@ Route::resource('edit', EditController::class);
 Route::get('/index', [StudentsController::class, 'index']);
 
 Route::get('/edit/form/{name}', [EditController::class, 'index'])->name('edit.form');
+Route::get('/laporan/filter', [AbsensiController::class, 'store'])->name('laporan.filter');

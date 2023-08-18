@@ -9,6 +9,7 @@ use App\Models\Siswa;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AbsensiController extends Controller
 {
@@ -63,9 +64,19 @@ class AbsensiController extends Controller
      */
     public function store(Request $request)
     {
+        // 
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id, Request $request)
+    {
         $request->validate([
             'nama' => 'required|string|not_in:' . implode(',', (array) $request->old('nama'))
         ]);
+
+        // $nam = $request->get('nama', $absensis->nama);
         $nama = $request->session()->get('nama', $request->input('nama'));
         $idsiswa = Siswa::where('name', $nama)
                         ->select('id')        
@@ -108,6 +119,11 @@ class AbsensiController extends Controller
                                 ->where('keterangan', '=', 'alfa')
                                 ->count();
 
+        $jumlahIjin = Absensi::where('id_siswa', $idA)
+                                ->where('keterangan', '=', 'ijin')
+                                ->count();
+
+
         return view('dashboard.laporan-rekap',[
             'absensis' => $filter,
             'siswa' =>$namaSiswaList,
@@ -117,15 +133,8 @@ class AbsensiController extends Controller
             'hadir' =>$jumlahHadir,
             'terlambat' =>$jumlahTerlambat,
             'alfa' =>$jumlahAlfa,
+            'ijin' =>$jumlahIjin,
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -141,14 +150,26 @@ class AbsensiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Ambil data absensi berdasarkan ID
+        $absensi = Absensi::find($id);
+        // return $absensi;
+
+        // Update keterangan
+        $absensi->keterangan = $request->input('ket');
+        $absensi->save();
+
+        return back()->with('success', ' Validasi berhasil.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
-        //
+        Auth::guard('web')->logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+        return redirect('/');
     }
 }
