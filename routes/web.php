@@ -5,6 +5,10 @@ use  App\Http\Controllers\AbsensiController;
 use  App\Http\Controllers\SiswaController;
 use  App\Http\Controllers\AbController;
 use  App\Http\Controllers\UidController;
+use  App\Http\Controllers\StudentsController;
+use  App\Http\Controllers\EditController;
+use Illuminate\Routing\Route as RoutingRoute;
+
 // use App\Http\Controllers\Api\AbsensiController;
 
 /*
@@ -17,26 +21,30 @@ use  App\Http\Controllers\UidController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard.dashboard');
-    })->name('dashboard');
-});
-// route resource untuk absen siswa
-Route::resource('/absen',UidController::class,);
-//route resource dashboard
+   //route resource dashboard
 Route::resource('/', SiswaController::class);
+});
+//Route Logout
+Route::get('/logout',[AbsensiController::class,'destroy'])->middleware('auth')->name('logout');
+// route untuk absen siswa
+Route::get('absen',[UidController::class, 'store']);
 //route resource laporan
-Route::resource('/laporan', AbsensiController::class)->names([
-    'index' => 'laporan',
-    'store' => 'filter',
-]);
-//route resource filter
-Route::resource('/laporan/cari', AbsensiController::class)->names([
-    'index' => 'laporan',
-    'store' => 'filter',
-]);
+Route::resource('laporan', AbsensiController::class);
+//route resource data
+Route::resource('data', StudentsController::class);
+//route resource form edit
+Route::resource('edit', EditController::class);
+
+Route::get('/index', [StudentsController::class, 'index']);
+
+Route::get('/edit/form/{name}', [EditController::class, 'index'])->name('edit.form');
+Route::get('/laporan/filter', [AbsensiController::class, 'store'])->name('laporan.filter');

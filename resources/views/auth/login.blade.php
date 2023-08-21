@@ -1,7 +1,9 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <span>
+                <img src="{{ url('skote/assets/images/connectislg.png') }}" height="10">
+            </span>
         </x-slot>
 
         <x-validation-errors class="mb-4" />

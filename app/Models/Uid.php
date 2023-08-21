@@ -14,7 +14,7 @@ class Uid extends Model
 
     protected $connection = 'mysql';
 
-    public function siswa(): BelongsTo
+    public function cji_siswa(): BelongsTo
     {
         return $this->belongsTo(Siswa::class, 'id_siswa', 'id');
     }

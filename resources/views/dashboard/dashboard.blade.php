@@ -95,7 +95,7 @@
                             </svg>
                         </div>
                         <div>
-                            <h5 class="card-title">{{ $lateStudent->name }}</h5>
+                            <h5 class="card-title">{{ $lateStudent->siswa->name }}</h5>
                             <p class="card-text text-danger text-size-large">Terlambat Hari Ini</p>
                             {{-- <p class="card-text">Datang jam : {{ $lateStudent->waktu_masuk}}</p> --}}
                         </div>

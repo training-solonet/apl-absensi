@@ -28,6 +28,11 @@ class croncekabsensi extends Command
      */
     public function handle()
     {
+        if (Carbon::now()->isSunday()) {
+            $this->info('Hari ini adalah hari Minggu. Tidak ada absensi yang perlu dicek.');
+            return;
+        }
+        
         $hariini = Carbon::today()->format('Y-m-d');
         $totalsiswa = 0;
         //cek data siswa yab=ng absensi

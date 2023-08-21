@@ -22,7 +22,7 @@
                             @php
                                 Session_start();
                             @endphp
-                            <form action="{{ route('filter') }}" method="GET">
+                            <form action="{{ route('laporan.show', 1) }}" method="GET">
                                 <div class="row mb-3" style="margin-top: 3%">
                                     <div class="col-md-4">
                                         <label for="nama" class="form-label">Pilih Nama:</label>
@@ -92,30 +92,38 @@
                                             <td></td>
                                         @endfor
                                     </tr>
-                                  <tr class="text-center">
-                                      <td colspan="2">Keterangan</td>
-                                      @foreach ($data->absensi as $monday)
-                                        @php
-                                            $keteranganClass = '';
-                                            switch ($monday->keterangan) {
-                                                case 'Terlambat':
-                                            $keteranganClass = 'table-warning';
-                                                break;
-                                            case 'Hadir':
-                                            $keteranganClass = 'table-success';
-                                                break;
-                                            case 'alfa':
-                                            $keteranganClass = 'table-danger';
-                                                break;
-                                            default:
+                                    <tr class="text-center">
+                                        <td colspan="2">Keterangan</td>
+                                        @foreach ($data->absensi as $monday)
+                                            @php
                                                 $keteranganClass = '';
-                                                break;
-                                            }
+                                                switch ($monday->keterangan) {
+                                                    case 'Terlambat':
+                                                        $keteranganClass = 'table-warning';
+                                                        break;
+                                                    case 'Hadir':
+                                                        $keteranganClass = 'table-success';
+                                                        break;
+                                                    case 'alfa':
+                                                        $keteranganClass = 'table-danger';
+                                                        break;
+                                                    default:
+                                                        $keteranganClass = '';
+                                                        break;
+                                                }
+                                            @endphp                               
+                                            <td style="vertical-align: middle" colspan="2" class="{{ $keteranganClass }}">{{ $monday->keterangan }}</td>
+                                        @endforeach
+                                        @php
+                                            $totalCols = 6; // Jumlah total kolom yang diinginkan (6 x 2)
+                                            $existingCols = count($data->absensi) * 2; // Jumlah kolom yang sudah ada (datang + pulang)
+                                            $emptyCols = $totalCols - $existingCols; // Selisih untuk menambahkan kolom kosong
                                         @endphp
-                                        <td colspan="2" class="{{ $keteranganClass }}">{{$monday->keterangan}}</td>
-                                    @endforeach
-                                      {{-- Add columns for "Keterangan" here if needed --}}
-                                  </tr>
+                                        @for ($i = 0; $i < $emptyCols; $i++)
+                                            <td colspan="2"></td>
+                                        @endfor
+                                        {{-- Add columns for "Keterangan" here if needed --}}
+                                    </tr>
                               @endforeach
                                 </tbody>
                             </table>
